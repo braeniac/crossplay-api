@@ -7,14 +7,12 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 //middleware
-app.use(express.json());
+app.use(express.json()); 
 
 //routes
 app.get('/', (req: Request, res: Response) => {
   res.send("In working order!");
 })
 
-//start server
-app.listen(PORT, () => {
-  console.log(`server running on PORT: ${PORT}`)
-});
+
+app.listen(PORT, () => console.log(`Server listening on port ${PORT}`)); 
