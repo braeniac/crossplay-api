@@ -33,7 +33,7 @@ passport.use(
     )
 )
 
-passport.authenticate("google", { session : false}, 
+passport.authenticate("google", { session : false }, 
 
     (req : Request, res : Response) => {
 
