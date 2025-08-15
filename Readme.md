@@ -1,6 +1,6 @@
 # Crossplay
 
-A **scalable backend system** for transferring playlists across multiple music streaming platforms such as Spotify and Apple Music. Designed with **concurrency, caching, and fault tolerance** in mind, this project demonstrates real-world backend engineering and systems design.
+A **scalable backend system** for transferring playlists across multiple music streaming platforms such as Spotify and Apple Music. Designed with **concurrency, caching, and fault tolerance** in mind.
 
 ---
 
