@@ -22,9 +22,7 @@ passport.use(
                     googleId: profile.id, 
                     email: profile.emails?.[0]?.value?.toLowerCase(), 
                     name: profile.displayName, 
-                    avatar: profile.photos?.[0]?.value,
-                    accessToken, 
-                    refreshToken
+                    avatar: profile.photos?.[0]?.value
                 })  
             }
             
@@ -52,7 +50,7 @@ passport.use(
     }, 
     async (req : Request, accessToken : string , refreshToken : string , idToken : string, profile : any, cb : VerifyCallback ) => {
         try{
-            //DB logic 
+            //DB logic --TODO
             let user = await User.findOne({ appleId : profile.id }); 
 
             if (!user) {
@@ -60,8 +58,6 @@ passport.use(
                     appleId : profile.id, 
                     email: profile.email?.toLowerCase(), 
                     name: profile.name ? `${profile.name.firstName} ${profile.name.lastName}` : undefined,
-                    accessToken,   
-                    refreshToken, 
                     idToken
                 })
             }
