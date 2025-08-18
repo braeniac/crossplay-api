@@ -1,10 +1,9 @@
 import dotenv from "dotenv";
 dotenv.config(); 
-
 import passport from "passport";
 import { Strategy as GoogleStrategy, Profile, VerifyCallback } from "passport-google-oauth20";
 const AppleStrategy = require("passport-apple"); 
-
+const jwt = require("jsonwebtoken"); 
 //models
 import User from "../models/User";
 
@@ -28,10 +27,14 @@ passport.use(
                     refreshToken
                 })  
             }
-            console.log(user); //DELETE
-            await user.save(); 
-            //err set to null means success.
-            return cb(null, user); 
+            
+            const token = jwt.sign(
+                { userId : user._id },
+                process.env.JWT_SECRET!, 
+                { expiresIn: '1h' }
+            )
+            
+            return cb(null, { user, token }); 
         } catch (err) {
             return cb(err); 
         }
@@ -40,11 +43,11 @@ passport.use(
 
 passport.use(
     new AppleStrategy({
-        clientID: "",
-        teamID: "",
+        clientID: process.env.APPLE_CLIENT_ID,
+        teamID: process.env.APPLE_TEAM_ID,
         callbackURL: process.env.APPLE_CALLBACK_URL,
-        keyID: "",
-        privateKeyLocation: "",
+        keyID: process.env.APPLE_KEY_ID,
+        privateKeyLocation: process.env.APPLE_PRIVATE_KEY_LOCATION,
         passReqToCallback: true
     }, 
     async (req : Request, accessToken : string , refreshToken : string , idToken : string, profile : any, cb : VerifyCallback ) => {
@@ -57,14 +60,20 @@ passport.use(
                     appleId : profile.id, 
                     email: profile.email?.toLowerCase(), 
                     name: profile.name ? `${profile.name.firstName} ${profile.name.lastName}` : undefined,
-                    accessToken, 
+                    accessToken,   
                     refreshToken, 
                     idToken
                 })
             }
 
-            await user.save(); 
-            return cb(null, user); 
+            const token = jwt.sign(
+                { userId: user._id },
+                process.env.JWT_SECRET!, 
+                { expiresIn : '1h' }
+            ); 
+
+            return cb(null, { user, token }); 
+        
         } catch(err) {
             console.log(err);
             return cb(err); 

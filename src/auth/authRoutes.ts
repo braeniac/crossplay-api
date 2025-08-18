@@ -115,7 +115,7 @@ router.post("/signup", createUserValidation, async (req : Request, res : Respons
 // @access  Public
 router.get("/google/callback", passport.authenticate('google',  
     { failureRedirect: '/login' }),  
-    (_, res) => {
+    (req, res) => {
         //successful authentication.
         res.redirect('/');
     }
@@ -126,9 +126,19 @@ router.get("/google/callback", passport.authenticate('google',
 // @access  Public
 router.get("/google", passport.authenticate('google', { scope : ['profile', 'email']})); 
 
+// APPLE OAUTH ----------------------------------------------------------------------------------------
 
+router.get("/apple/callback", passport.authenticate('apple',
+    { failureRedirect: '/login' }),  
+    (req, res) => {
+        //successful authentication.
+        res.redirect('/');
+    }
+);
 
-
-
+// @route    GET auth/apple
+// @desc     Initiate Google OAuth2.0 login flow
+// @access   Public 
+router.get("/apple", passport.authenticate('apple', { scope : ['profile', 'email']})); 
 
 export default router; 
