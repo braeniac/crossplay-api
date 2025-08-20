@@ -68,4 +68,4 @@ const ProviderAccountSchema = new Schema({
 
 }, {timestamps : true}); 
 
-export default mongoose.model("ProviderAcccount", ProviderAccountSchema); 
+export default mongoose.model("ProviderAccount", ProviderAccountSchema); 
