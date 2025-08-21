@@ -141,4 +141,10 @@ router.get("/apple/callback", passport.authenticate('apple',
 // @access   Public 
 router.get("/apple", passport.authenticate('apple', { scope : ['profile', 'email']})); 
 
+
+// SPOTIFY OAUTH --------------------------------------------------------------------------------------
+
+router.get("")
+
+
 export default router; 

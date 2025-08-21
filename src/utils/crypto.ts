@@ -13,9 +13,11 @@ export function encryptGCM(plainText : string) {
         throw new Error("EXCRYPTION_KEY_HEX must be 64 hex chars (32 bytes)"); 
     }
     
+    //12 byte nonce
     const iv = randomBytes(12); 
     const cipher = createCipheriv(algorithm, key, iv); 
-    //update utf-8 plain text and returns ciphertext bytes.
+    //update utf-8 plain text
+    //returns ciphertext bytes.
     const encrypted = Buffer.concat([cipher.update(plainText, "utf8"), cipher.final()]);
     const tag = cipher.getAuthTag(); 
 
