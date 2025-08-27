@@ -115,7 +115,7 @@ router.post("/signup", createUserValidation, async (req : Request, res : Respons
 // @access  Public
 router.get("/google/callback", passport.authenticate('google',  
     { failureRedirect: '/login' }),  
-    (req, res) => {
+    (_, res) => {
         //successful authentication.
         res.redirect('/');
     }
@@ -130,21 +130,19 @@ router.get("/google", passport.authenticate('google', { scope : ['profile', 'ema
 
 router.get("/apple/callback", passport.authenticate('apple',
     { failureRedirect: '/login' }),  
-    (req, res) => {
+    (_, res) => {
         //successful authentication.
         res.redirect('/');
     }
 );
 
 // @route    GET auth/apple
-// @desc     Initiate Google OAuth2.0 login flow
+// @desc     Initiate Apple login flow
 // @access   Public 
-router.get("/apple", passport.authenticate('apple', { scope : ['profile', 'email']})); 
+router.get("/apple", passport.authenticate('apple', { scope : ['profile', 'email'] })); 
 
 
 // SPOTIFY OAUTH --------------------------------------------------------------------------------------
-
-
 
 
 export default router; 

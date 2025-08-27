@@ -2,6 +2,7 @@ import { Request } from "express";
 import passport from "passport";
 import { Strategy as SpotifyStrategy, Profile as SpotifyProfile } from "passport-spotify";
 
+
 export function configureSpotifyStrategy() {
     passport.use(new SpotifyStrategy(
         {
@@ -16,7 +17,7 @@ export function configureSpotifyStrategy() {
             refreshToken : string, 
             expires_in: number, 
             profile : SpotifyProfile, 
-            done
+            done 
         ) => {
             try {
                 return done(null, {
